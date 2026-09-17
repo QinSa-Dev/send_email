@@ -1,0 +1,7 @@
+# 密钥与本地配置
+config/mail.env
+config/mail_config.toml
+.env
+*.eml
+__pycache__/
+*.pyc

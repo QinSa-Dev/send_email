@@ -1,0 +1,60 @@
+name: send_email
+description: |
+  发送邮件通知，支持在本机把 Markdown 渲染为 HTML 后发送，并支持携带附件。
+  邮箱配置存放在 .env（config/mail.env）或环境变量中，不会提交到公网。
+  两种正文模式二选一：
+  1. body_file：指定本地 Markdown 文件路径（支持 ~ 简写），.md 会自动渲染
+  2. body_text：直接填入正文文本（按 Markdown 渲染，可为空字符串）
+  支持携带多个附件，适合任务完成报告、告警推送。
+  首次使用请先运行 setup_mail.sh 完成邮箱配置。
+  入参说明：
+  - subject: string，邮件标题，必填
+  - body_file: string，可选，正文文件路径（.md 本地渲染）；与 body_text 二选一
+  - body_text: string，可选，邮件正文文本，按 Markdown 渲染，可以为空；与 body_file 二选一
+  - attachments: array<string>，可选，附件文件路径列表，支持 ~ 简写，例如 ["~/report.pdf"]
+usage: |
+  # 示例1：读取md文件作为正文（自动渲染 Markdown）
+  send_email(
+    subject="【samba-service 任务完成】",
+    body_file="~/samba-disable-enable-task-report.md",
+    attachments=["~/samba-disable-enable-task-report.pdf"]
+  )
+  # 示例2：直接填写 Markdown 文本
+  send_email(
+    subject="【209 test】",
+    body_text="# 执行结果\n\n本次任务执行完毕。",
+    attachments=null
+  )
+  # 示例3：空正文邮件
+  send_email(
+    subject="【209 test】",
+    body_text="",
+    attachments=null
+  )
+parameters:
+  subject:
+    type: string
+    required: true
+  body_file:
+    type: string
+    required: false
+  body_text:
+    type: string
+    required: false
+  attachments:
+    type: array
+    items:
+      type: string
+    required: false
+# 可移植性：command 用 SEND_EMAIL_DIR 覆盖 skill 安装目录，克隆到任意路径后：
+#   export SEND_EMAIL_DIR=/your/path/to/send_email
+# 若运行环境不解析 ${VAR}，请把下一行直接改成你的实际安装路径。
+exec:
+  command: "${SEND_EMAIL_DIR:-/root/skills/send_email}/send.sh"
+  input: |
+    {
+      "subject": "{{subject}}",
+      "body_file": "{{body_file}}",
+      "body_text": "{{body_text}}",
+      "attachments": {{attachments | toJson}}
+    }

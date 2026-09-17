@@ -1,0 +1,5 @@
+# 真实配置含邮箱授权码，禁止提交
+mail.env
+.env
+mail_config.toml
+*.local
