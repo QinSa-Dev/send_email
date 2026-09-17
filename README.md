@@ -1,5 +1,7 @@
 # send_email
 
+> 仓库：<https://github.com/QinSa-Dev/send_email>
+
 让 agent 调用并发送邮件：**本机渲染 Markdown** + 多附件，邮箱密钥通过 `.env`
 或环境变量配置，不会提交到公网。
 
@@ -22,7 +24,7 @@ send_email/
 ## 快速开始
 
 ```bash
-git clone <your-gitlab-repo-url> send_email   # 或下载 ZIP 解压
+git clone https://github.com/QinSa-Dev/send_email.git   # 或下载 ZIP 解压
 cd send_email
 
 ./install.sh       # 检查 python3/jq，初始化 config/mail.env

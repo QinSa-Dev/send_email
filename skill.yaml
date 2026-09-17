@@ -1,3 +1,4 @@
+# 仓库：https://github.com/QinSa-Dev/send_email
 name: send_email
 description: |
   发送邮件通知，支持在本机把 Markdown 渲染为 HTML 后发送，并支持携带附件。

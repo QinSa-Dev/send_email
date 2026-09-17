@@ -10,6 +10,8 @@ metadata:
 
 # send_email
 
+Repository: <https://github.com/QinSa-Dev/send_email>
+
 Send email with **local Markdown rendering** and **file attachments**. Credentials
 come from `config/mail.env` (git-ignored) or environment variables.
 
